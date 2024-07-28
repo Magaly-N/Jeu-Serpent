@@ -6,6 +6,8 @@ window.onload = function () {
     var xCoord = 0;
     var yCoord = 0;
 
+    init();
+
     function init() {
         canvas = document.createElement('canvas');
         canvas.width = 900;
@@ -19,11 +21,12 @@ window.onload = function () {
     }
 
     function refreshCanvas() {
-        xCoord += 2;
-        yCoord += 2;
+        xCoord += 5; // start position of the rectangle  from x
+        yCoord += 5;// start position of the rectangle  from y
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = "#ff0000"; // color of the rectangle
         ctx.fillRect(xCoord, yCoord, 100, 50); // (position x, position y, width, height)
+        setTimeout(refreshCanvas, delay);
     };
 
 };
