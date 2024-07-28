@@ -3,7 +3,7 @@ window.onload = function () {
     var canvasHeight = 600;
     var blockSize = 30;
     var ctx;
-    var delay = 1000;
+    var delay = 100;
     var snakee;
 
     init();
@@ -26,6 +26,7 @@ window.onload = function () {
     function refreshCanvas() {
 
         ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+        snakee.advance();
         snakee.draw();
         setTimeout(refreshCanvas, delay);
     };
@@ -46,6 +47,12 @@ window.onload = function () {
                 drawBlock(ctx, this.body[i]);
             };
             ctx.restore();
+        };
+        this.advance = function () {
+            var nextPosition = this.body[0].slice();
+            nextPosition[0] += 1;
+            this.body.unshift(nextPosition); // Creation of the new right block on the canvas
+            this.body.pop(); // Left block delete
         };
     };
 };
