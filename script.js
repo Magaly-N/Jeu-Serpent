@@ -69,4 +69,24 @@ window.onload = function () {
             this.body.pop(); // Left block delete
         };
     };
+
+    document.onkeydown = function handleKeyDown(e) {
+
+        var key = e.keyCode;
+        var newDirection;
+        switch (key) {
+            case 37:
+                newDirection = "left";
+                break;
+            case 38:
+                newDirection = "up";
+                break;
+            case 39:
+                newDirection = "right";
+                break;
+            case 40:
+                newDirection = "down";
+                break;
+        }
+    }
 };
