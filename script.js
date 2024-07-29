@@ -64,9 +64,27 @@ window.onload = function () {
                 case "up":
                     nextPosition[1] -= 1;
                     break;
+                default:
+                    throw ("Invalid direction");
             }
             this.body.unshift(nextPosition); // Creation of the new right block on the canvas
             this.body.pop(); // Left block delete
+        };
+
+        this.setDirection(newDirection){
+            var allowedDirections;
+            switch (this.direction) {
+                case "left":
+                case "right":
+                    allowedDirections = ["up", "down"];
+                    break;
+                case "down":
+                case "up":
+                    allowedDirections = ["left", "right"];
+                    break;
+                default:
+                    throw ("Invalid direction");
+            }
         };
     };
 
