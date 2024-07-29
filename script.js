@@ -18,7 +18,7 @@ window.onload = function () {
         // create of the canvas context
         ctx = canvas.getContext('2d');
 
-        snakee = new Snake([[6, 4], [5, 4], [4, 4]]);
+        snakee = new Snake([[6, 4], [5, 4], [4, 4]], "right");
 
         refreshCanvas();
     }
@@ -38,8 +38,9 @@ window.onload = function () {
     };
 
 
-    function Snake(body) {
+    function Snake(body, direction) {
         this.body = body;
+        this.direction = direction;
         this.draw = function () {
             ctx.save();
             ctx.fillStyle = "#ff0000";
@@ -50,7 +51,20 @@ window.onload = function () {
         };
         this.advance = function () {
             var nextPosition = this.body[0].slice();
-            nextPosition[0] += 1;
+            switch (this.direction) {
+                case "left":
+                    nextPosition[0] += 1;
+                    break;
+                case "right":
+                    nextPosition[0] -= 1;
+                    break;
+                case "down":
+                    nextPosition[1] += 1;
+                    break;
+                case "up":
+                    nextPosition[1] -= 1;
+                    break;
+            }
             this.body.unshift(nextPosition); // Creation of the new right block on the canvas
             this.body.pop(); // Left block delete
         };
