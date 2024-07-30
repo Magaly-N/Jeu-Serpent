@@ -5,6 +5,7 @@ window.onload = function () {
     var ctx;
     var delay = 700;
     var snakee;
+    var applee;
 
     init();
 
@@ -20,6 +21,7 @@ window.onload = function () {
 
         // Creation of the body's snake to start with an array; each value represent a block of the snake's body
         snakee = new Snake([[6, 4], [5, 4], [4, 4]], "right");
+        applee = new Apple([10, 10]);
 
         refreshCanvas();
     }
@@ -29,6 +31,7 @@ window.onload = function () {
         ctx.clearRect(0, 0, canvasWidth, canvasHeight);
         snakee.advance();
         snakee.draw();
+        applee.draw();
         setTimeout(refreshCanvas, delay);
     };
 
@@ -91,6 +94,21 @@ window.onload = function () {
             }
         };
     };
+
+    function Apple(position) {
+        this.position = position;
+        this.draw = function () {
+            ctx.save();
+            ctx.fillStyle = "#33cc33";
+            ctx.beginPath();
+            var radius = blockSize / 2;
+            var x = position[0] * blockSize + radius;
+            var y = position[1] * blockSize + radius;
+            ctx.arc(x, y, radius, 0, Math.PI * 2, true);
+            ctx.fill();
+            ctx.restore();
+        };
+    }
 
     document.onkeydown = function handleKeyDown(event) {
 
