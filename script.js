@@ -36,6 +36,7 @@ window.onload = function () {
         }
         else {
             if (snakee.isEatingApple(applee)) {
+                snakee.ateApple = true;
                 do {
                     applee.setNewPosition();
                 }
@@ -88,7 +89,13 @@ window.onload = function () {
                     throw ("Invalid direction");
             }
             this.body.unshift(nextPosition); // Creation of the new right block on the canvas
-            this.body.pop(); // Left block delete
+            if (!this.ateApple) {
+                this.body.pop(); // Left block delete
+            }
+            else {
+                this.ateApple = false;
+            }
+
         };
 
         this.setDirection = function (newDirection) {
