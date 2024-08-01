@@ -22,7 +22,7 @@ window.onload = function () {
         ctx = canvas.getContext('2d');
 
         // Creation of the body's snake to start with an array; each value represent a block of the snake's body
-        snakee = new Snake([[6, 4], [5, 4], [4, 4]], "right");
+        snakee = new Snake([[6, 4], [5, 4], [4, 4], [3, 4], [2, 4]], "right");
         applee = new Apple([10, 10]);
 
         refreshCanvas();
@@ -35,6 +35,9 @@ window.onload = function () {
             // GAME OVER
         }
         else {
+            if (snakee.isEatingApple(applee)) {
+                // le serpent à mané la pomme
+            }
             ctx.clearRect(0, 0, canvasWidth, canvasHeight);
             snakee.draw();
             applee.draw();
@@ -129,6 +132,12 @@ window.onload = function () {
             };
             return wallCollision || snakeCollision;
         };
+
+        this.isEatingApple = function (appleToEat) {
+            var head = position[0];
+            if (head[0] === appleToEat.position[0] && head[1] === appleToEat.position[1]) { return true; }
+            else { return false; }
+        }
     };
 
     function Apple(position) {
