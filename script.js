@@ -8,6 +8,7 @@ window.onload = function () {
     var applee;
     var widthInBlocks = canvasWidth / blockSize;
     var heightInBlocks = canvasHeight / blockSize;
+    var score;
 
     init();
 
@@ -24,7 +25,7 @@ window.onload = function () {
         // Creation of the body's snake to start with an array; each value represent a block of the snake's body
         snakee = new Snake([[6, 4], [5, 4], [4, 4], [3, 4], [2, 4]], "right");
         applee = new Apple([10, 10]);
-
+        score = 0;
         refreshCanvas();
     }
 
@@ -36,6 +37,7 @@ window.onload = function () {
         }
         else {
             if (snakee.isEatingApple(applee)) {
+                score++;
                 snakee.ateApple = true;
                 do {
                     applee.setNewPosition();
@@ -46,6 +48,7 @@ window.onload = function () {
             ctx.clearRect(0, 0, canvasWidth, canvasHeight);
             snakee.draw();
             applee.draw();
+            drawScore();
             setTimeout(refreshCanvas, delay);
         }
 
@@ -61,8 +64,15 @@ window.onload = function () {
     function restart() {
         snakee = new Snake([[6, 4], [5, 4], [4, 4], [3, 4], [2, 4]], "right");
         applee = new Apple([10, 10]);
+        score = 0;
         refreshCanvas();
     };
+
+    function drawScore() {
+        ctx.save();
+        ctx.fillText(score.toString(), 5, canvasHeight - 5);
+        ctx.restore();
+    }
 
     function drawBlock(ctx, position) {
         var x = position[0] * blockSize;
