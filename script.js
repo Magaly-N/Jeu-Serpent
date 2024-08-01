@@ -3,7 +3,7 @@ window.onload = function () {
     var canvasHeight = 600;
     var blockSize = 30;
     var ctx;
-    var delay = 700;
+    var delay = 300;
     var snakee;
     var applee;
     var widthInBlocks = canvasWidth / blockSize;
@@ -36,7 +36,11 @@ window.onload = function () {
         }
         else {
             if (snakee.isEatingApple(applee)) {
-                applee.setNewPosition();
+                do {
+                    applee.setNewPosition();
+                }
+                while (applee.isOnSnake(snakee));
+
             }
             ctx.clearRect(0, 0, canvasWidth, canvasHeight);
             snakee.draw();
@@ -56,6 +60,7 @@ window.onload = function () {
     function Snake(body, direction) {
         this.body = body;
         this.direction = direction;
+        this.ateApple = false;
         this.draw = function () {
             ctx.save(); // Save initial context
             ctx.fillStyle = "#ff0000";
@@ -159,6 +164,17 @@ window.onload = function () {
             var newY = Math.round(Math.random() * (heightInBlocks - 1));
             this.position = [newX, newY];
         }
+        this.isOnSnake = function (snakeToCheck) {
+            var isOnSnake = false;
+            for (var i = 0; i < snakeToCheck.body.length; i++) {
+                // If the new position of the apple is on the body of snake, it's true otherwise is false 
+                if (this.position[0] === snakeToCheck.body[i][0] && this.position[1] === snakeToCheck.body[i][1]) {
+                    isOnSnake = true;
+                }
+                return isOnSnake;
+            }
+
+        };
     }
 
     document.onkeydown = function handleKeyDown(event) {
