@@ -32,7 +32,7 @@ window.onload = function () {
 
         snakee.advance();
         if (snakee.checkCollision()) {
-            // GAME OVER
+            gameOver();
         }
         else {
             if (snakee.isEatingApple(applee)) {
@@ -49,6 +49,19 @@ window.onload = function () {
             setTimeout(refreshCanvas, delay);
         }
 
+    };
+
+    function gameOver() {
+        ctx.save();
+        ctx.fillText("Game Over", 5, 15);
+        ctx.fillText("Appuyer sur la touche Espace pour rejouer", 5, 30);
+        ctx.restore();
+    };
+
+    function restart() {
+        snakee = new Snake([[6, 4], [5, 4], [4, 4], [3, 4], [2, 4]], "right");
+        applee = new Apple([10, 10]);
+        refreshCanvas();
     };
 
     function drawBlock(ctx, position) {
@@ -201,6 +214,9 @@ window.onload = function () {
             case "ArrowDown":
                 newDirection = "down";
                 break;
+            case " ":
+                restart();
+                return;
             default:
                 return;
         }
