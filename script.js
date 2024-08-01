@@ -36,7 +36,7 @@ window.onload = function () {
         }
         else {
             if (snakee.isEatingApple(applee)) {
-                // le serpent à mané la pomme
+                applee.setNewPosition();
             }
             ctx.clearRect(0, 0, canvasWidth, canvasHeight);
             snakee.draw();
@@ -134,7 +134,7 @@ window.onload = function () {
         };
 
         this.isEatingApple = function (appleToEat) {
-            var head = position[0];
+            var head = this.body[0];
             if (head[0] === appleToEat.position[0] && head[1] === appleToEat.position[1]) { return true; }
             else { return false; }
         }
@@ -148,12 +148,17 @@ window.onload = function () {
             ctx.beginPath();
             var radius = blockSize / 2;
             // xCoord and yCoord = middle of the apple
-            var x = position[0] * blockSize + radius;
-            var y = position[1] * blockSize + radius;
+            var x = this.position[0] * blockSize + radius;
+            var y = this.position[1] * blockSize + radius;
             ctx.arc(x, y, radius, 0, Math.PI * 2, true);
             ctx.fill();
             ctx.restore();
         };
+        this.setNewPosition = function () {
+            var newX = Math.round(Math.random() * (widthInBlocks - 1));
+            var newY = Math.round(Math.random() * (heightInBlocks - 1));
+            this.position = [newX, newY];
+        }
     }
 
     document.onkeydown = function handleKeyDown(event) {
