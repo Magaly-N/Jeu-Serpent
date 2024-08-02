@@ -3,7 +3,7 @@ window.onload = function () {
     var canvasHeight = 600;
     var blockSize = 30;
     var ctx;
-    var delay = 300;
+    var delay = 1000;
     var snakee;
     var applee;
     var widthInBlocks = canvasWidth / blockSize;
@@ -45,10 +45,8 @@ window.onload = function () {
                 snakee.ateApple = true;
                 do {
                     applee.setNewPosition();
-                }
-                while (applee.isOnSnake(snakee));
-
-            }
+                } while (applee.isOnSnake(snakee));
+            };
             ctx.clearRect(0, 0, canvasWidth, canvasHeight);
             drawScore();
             snakee.draw();
@@ -136,10 +134,9 @@ window.onload = function () {
             this.body.unshift(nextPosition); // Creation of the new right block on the canvas
             if (!this.ateApple) {
                 this.body.pop(); // Left block delete
-            }
-            else {
+            } else {
                 this.ateApple = false;
-            }
+            };
 
         };
 
